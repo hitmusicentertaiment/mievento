@@ -13,6 +13,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 use yii\web\Application;
 use yii\web\Request as WebRequest;
 
@@ -110,7 +111,7 @@ class User extends \common\models\User
             ->andWhere([
                 '>',
                 'access_token_expired_at',
-                new Expression('UNIX_TIMESTAMP()')
+                new Expression('extract(epoch from now())')
             ])->one();
 
         if ($user !== null &&
@@ -132,7 +133,7 @@ class User extends \common\models\User
     {
         // update client login, ip
         $this->last_login_ip = Yii::$app->request->getUserIP();
-        $this->last_login_at = new Expression('UNIX_TIMESTAMP()');
+        $this->last_login_at = new Expression('extract(epoch from now())');
 
         // check time is expired or not
         if ($forceRegenerate == true
@@ -230,6 +231,21 @@ class User extends \common\models\User
     public function getJTI()
     {
         return $this->getId();
+    }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        unset($fields['password']);
+        $fields['roles'] = function(User $model){
+
+            $authManager = Yii::$app->authManager;
+            $roles = $authManager->getRolesByUser($this->id);
+            return array_keys($roles);
+        };
+
+
+        return $fields;
     }
 
 }

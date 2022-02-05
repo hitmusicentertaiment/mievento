@@ -1,4 +1,9 @@
 <?php
+
+use backend\controllers\user\RegistrationController;
+use backend\controllers\user\SecurityController;
+use backend\controllers\user\AdminController;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -14,19 +19,31 @@ return [
     'modules' => [
         'user' => [
             'class' => Da\User\Module::class,
-            'enableRegistration' => false,
+            'enableRegistration' => true,
             'mailParams' => [
                 'fromEmail' => $params['senderEmail'],
                 'reconfirmationMailSubject' => "Nuevo email en {$params['appName']}"
             ],
-
-//            'enableEmailConfirmation' => false,
-//            'administrators' => ['administrator'],
+            'controllerMap' => [
+                'admin' => [
+                    'class' => AdminController::class
+                ],
+                'security' => [
+                    'class' => SecurityController::class
+                ],
+                'registration' => [
+                    'class' => RegistrationController::class
+                ]
+            ],
+            'enableEmailConfirmation' => false,
+            'administrators' => ['administrator'],
             'administratorPermissionName' => 'admin',
             // ...other configs from here: [Configuration Options](installation/configuration-options.md), e.g.
-            'generatePasswords' => true,
+            'generatePasswords' => false,
             'switchIdentitySessionKey' => 'myown_usuario_admin_user_key',
             'enableSwitchIdentities' => true,
+            'allowUnconfirmedEmailLogin' => true,
+            'enableGdprCompliance' => false
         ],
     ],
     'components' => [
@@ -57,6 +74,12 @@ return [
 
         'assetManager' => [
             'class' => \yii\web\AssetManager::class,
+            'bundles' => [
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
+                ],
+            ],
+            'appendTimestamp' => true
         ],
 
         'view' => [
@@ -74,6 +97,21 @@ return [
             'rules' => [
 // ...
             ],
+        ]
+    ],
+    'container' => [
+        'definitions' => [
+            \yii\grid\GridView::class => [
+                'tableOptions' => ['class' => 'table table-head-fixed text-nowrap table-hover'],
+                'layout' => '<div class="card"><div class="card-body table-responsive p-0">{items}</div><div class="card-footer">{pager}</div></div>',
+                'pager' => [
+                    'class' => \yii\widgets\LinkPager::class,
+                    'options' => ['class' => 'pagination pagination-sm m-0 float-right'],
+                    'linkContainerOptions' => ['class' => 'page-item'],
+                    'linkOptions' => ['class' => 'page-link', 'data-pjax-scrollto' => '1'],
+                    'disabledListItemSubTagOptions' => ['class' => 'page-link']
+                ]
+            ]
         ]
     ],
     'params' => $params,

@@ -3,11 +3,13 @@ version: '3.2'
 services:
 
   pgsql:
-   image: postgres:9.5
-   environment:
-     - POSTGRES_DB=yii2advanced
-     - POSTGRES_USER=yii2advanced
-     - POSTGRES_PASSWORD=secret
+    image: postgres:9.5
+    environment:
+     - POSTGRES_DB=newtimes
+     - POSTGRES_USER=newtimes
+     - POSTGRES_PASSWORD=newtimes
+    ports:
+      - 54321:5432
 
   api:
     depends_on:

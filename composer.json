@@ -54,7 +54,9 @@
       "kartik-v/yii2-widget-growl": "dev-master",
       "kartik-v/yii2-widget-fileinput": "dev-master",
       "guzzlehttp/guzzle": "^7.0",
-      "kartik-v/yii2-dialog": "dev-master"
+      "kartik-v/yii2-dialog": "dev-master",
+      "almasaeed2010/adminlte": "~3.0.0",
+        "kartik-v/yii2-editors": "dev-master"
     },
     "require-dev": {
       "yiisoft/yii2-debug": "~2.1.0",
@@ -83,4 +85,3 @@
         }
     ]
   }
-
