@@ -30,8 +30,6 @@ services:
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     labels:
       - "traefik.enable=true"
-
-      - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.apihits-secure.entrypoints=websecure"
       - "traefik.http.routers.apihits-secure.rule=Host(`apihits.rubrum.eu`)"
@@ -55,8 +53,6 @@ services:
       - ./docker/php/custom-config.ini:/usr/local/etc/php/conf.d/custom-config.ini
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     labels:
-      - "traefik.enable=true"
-
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.backendhits-secure.entrypoints=websecure"
