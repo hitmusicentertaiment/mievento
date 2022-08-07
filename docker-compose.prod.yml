@@ -15,7 +15,8 @@ services:
 #    depends_on:
 #      - pgsql
     container_name: api
-    build: api
+    build:
+      - dockerfile: ./api/Dockerfile
     expose:
       - 80
     restart: always
@@ -50,8 +51,9 @@ services:
   backend:
 #    depends_on:
 #      - pgsql
-    container_name: backend
-    build: backend
+    container_name: backendhits
+    build:
+      - dockerfile: ./backend/Dockerfile
     expose:
       - 80
     restart: always
