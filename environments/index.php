@@ -34,9 +34,8 @@ return [
         'setWritable' => [
             'backend/runtime',
             'backend/web/assets',
+            'backend/web/uploads',
             'console/runtime',
-            'frontend/runtime',
-            'frontend/web/assets',
             'api/runtime',
             'api/web/assets',
         ],
@@ -50,15 +49,17 @@ return [
             'frontend/config/main-local.php',
             'api/config/main-local.php',
         ],
+        'createSymlink' => [
+            'api/web/uploads' => 'backend/web/uploads'
+        ]
     ],
     'Production' => [
         'path' => 'prod',
         'setWritable' => [
             'backend/runtime',
             'backend/web/assets',
+            'backend/web/uploads',
             'console/runtime',
-            'frontend/runtime',
-            'frontend/web/assets',
             'api/runtime',
             'api/web/assets',
         ],
@@ -70,5 +71,8 @@ return [
             'frontend/config/main-local.php',
             'api/config/main-local.php',
         ],
+        'createSymlink' => [
+            'api/web/uploads' => 'backend/web/uploads'
+        ]
     ],
 ];

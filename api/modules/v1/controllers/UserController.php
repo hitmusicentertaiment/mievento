@@ -25,6 +25,7 @@ use Da\User\Validator\AjaxRequestModelValidator;
 use DateTime;
 use Yii;
 use yii\authclient\OAuthToken;
+use yii\base\ErrorException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
@@ -441,17 +442,30 @@ class UserController extends BaseActiveController
 
         $transaction = Yii::$app->db->beginTransaction();
         $post = Yii::$app->request->post();
-        $post['email'] = $post['username'];
+        $post['username'] = $post['email'];
         if ($form->load($post) && $form->validate()) {
             $this->trigger(FormEvent::EVENT_BEFORE_REGISTER, $event);
 
             /** @var User $user */
             $user = $this->make(User::class, [], $form->getAttributes(['email', 'username', 'password']));
             $user->confirmed_at = time();
-            if($user->save(false)){
-                $authManager = Yii::$app->getAuthManager();
-                $role = $authManager->getRole('client');
-                $authManager->assign($role, $user->id);
+            try {
+                if ($user->save(false)) {
+                    $profile = new Profile();
+                    $post['user_id'] = $user->id;
+                    if ($profile->load($post, '') && $profile->save()) {
+                        $authManager = Yii::$app->getAuthManager();
+                        $role = $authManager->getRole('customer');
+                        $authManager->assign($role, $user->id);
+                    } else {
+                        throw new ErrorException(json_encode($profile->errors));
+                    }
+                } else {
+                    throw new ErrorException(json_encode($user->errors));
+                }
+            }catch (\Exception $e){
+                $transaction->rollBack();
+                throw $e;
             }
 
 //            MailFactory::makeWelcomeMailerService($user)->run();

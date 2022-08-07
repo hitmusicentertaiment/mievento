@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=pgsql;dbname=newtimes',
-            'username' => 'newtimes',
-            'password' => 'newtimes',
+            'dsn' => 'pgsql:host=pgsql;dbname=mievento',
+            'username' => 'mievento',
+            'password' => 'mievento',
             'charset' => 'utf8',
         ],
         'mailer' => [

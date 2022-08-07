@@ -10,7 +10,7 @@ use yii\base\InvalidConfigException;
 /**
 
  */
-class Profile extends \Da\User\Model\Profile
+class Profile extends \common\models\Profile
 {
 
     public function formName()

@@ -90,47 +90,7 @@ return [
                     'controller' => 'v1/me',
                     'pluralize' => false
                 ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/business-profile',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/city',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/country',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/state',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/location',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/payment',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/post',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/service',
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/post-type',
-                ],
 
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/speciality-category',
-                ],
 
 
 
@@ -139,6 +99,13 @@ return [
 
         'response' => [
             'class' => 'yii\web\Response',
+            'formatters' => [
+                \yii\web\Response::FORMAT_JSON => [
+                    'class' => 'yii\web\JsonResponseFormatter',
+                    'prettyPrint' => YII_DEBUG, // use "pretty" output in debug mode
+                    'keepObjectType' => true, // keep object type for zero-indexed objects
+                ],
+            ],
             'on beforeSend' => function ($event) {
                 $response = $event->sender;
                 if ($response->format == 'html') {

@@ -152,7 +152,7 @@ class User extends \common\models\User
 //        $this->access_token = Yii::$app->security->generateRandomString();
         $tokens = $this->getJWT();
         $this->access_token = $tokens[0];   // Token
-        $this->access_token_expired_at = $tokens[1]['exp']; // Expire
+        // $this->access_token_expired_at = $tokens[1]['exp']; // Expire
     }
 
     /*

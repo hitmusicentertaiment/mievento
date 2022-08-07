@@ -19,7 +19,7 @@ class MeController extends BaseActiveController
         return $actions;
     }
 
-    public function actionIndex(){
+    public function actionMe(){
         return User::find()->where(['id' => \Yii::$app->user->identity->id])->one();
     }
 }
