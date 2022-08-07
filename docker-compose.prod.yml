@@ -14,7 +14,7 @@ services:
   api:
 #    depends_on:
 #      - pgsql
-    container_name: api
+    container_name: apihits
     build:
       context: .
       dockerfile: ./api/Dockerfile
