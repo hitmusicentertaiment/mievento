@@ -31,22 +31,10 @@ services:
     labels:
       - "traefik.enable=true"
 
-      - "traefik.http.routers.apih.rule=Host(`apihits.rubrum.eu`)"
-      - "traefik.http.routers.apih.entrypoints=http"
-      - "traefik.http.routers.apih.service=apih"
-      - "traefik.http.middlewares.apih-redirectscheme.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.apih-redirectscheme.redirectscheme.permanent=false"
-      - "traefik.http.routers.apih.middlewares=apih-redirectscheme"
-
-      - "traefik.http.routers.apih-secure.rule=Host(`apihits.rubrum.eu`)"
-      - "traefik.http.routers.apih-secure.entrypoints=https"
-      - "traefik.http.routers.apih-secure.service=apih"
-      - "traefik.http.routers.apih-secure.tls=true"
-      - "traefik.http.routers.apih-secure.tls.certresolver=letsencrypt"
-
-      - "traefik.http.services.apih.loadbalancer.server.port=80"
-      - "traefik.http.services.apih.loadbalancer.server.scheme=http"
-      - "traefik.http.services.apih.loadbalancer.passhostheader=true"
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.apihits-secure.entrypoints=websecure"
+      - "traefik.http.routers.apihits-secure.rule=Host(`apihits.rubrum.eu`)"
 
 
   backend:
@@ -69,22 +57,10 @@ services:
     labels:
       - "traefik.enable=true"
 
-      - "traefik.http.routers.backendh.rule=Host(`backendhits.rubrum.eu`)"
-      - "traefik.http.routers.backendh.entrypoints=http"
-      - "traefik.http.routers.backendh.service=backendh"
-      - "traefik.http.middlewares.backendh-redirectscheme.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.backendh-redirectscheme.redirectscheme.permanent=false"
-      - "traefik.http.routers.backendh.middlewares=backendh-redirectscheme"
-
-      - "traefik.http.routers.backendh-secure.rule=Host(`backendhits.rubrum.eu`)"
-      - "traefik.http.routers.backendh-secure.entrypoints=https"
-      - "traefik.http.routers.backendh-secure.service=backendh"
-      - "traefik.http.routers.backendh-secure.tls=true"
-      - "traefik.http.routers.backendh-secure.tls.certresolver=letsencrypt"
-
-      - "traefik.http.services.backendh.loadbalancer.server.port=80"
-      - "traefik.http.services.backendh.loadbalancer.server.scheme=http"
-      - "traefik.http.services.backendh.loadbalancer.passhostheader=true"
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.backendhits-secure.entrypoints=websecure"
+      - "traefik.http.routers.backendhits-secure.rule=Host(`backendhits.rubrum.eu`)"
 
 
 networks:
