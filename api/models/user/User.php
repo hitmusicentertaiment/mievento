@@ -108,11 +108,12 @@ class User extends \common\models\User
             'id',
             $id
         ])
-            ->andWhere([
-                '>',
-                'access_token_expired_at',
-                new Expression('extract(epoch from now())')
-            ])->one();
+//            ->andWhere([
+//                '>',
+//                'access_token_expired_at',
+//                new Expression('extract(epoch from now())')
+//            ])
+            ->one();
 
         if ($user !== null &&
             ($user->getIsBlocked() == true || $user->getIsConfirmed() == false)) {

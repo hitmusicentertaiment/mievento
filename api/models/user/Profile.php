@@ -27,12 +27,12 @@ class Profile extends \common\models\Profile
         $fields['email'] = function(Profile $profile){
             return $profile->user->username;
         };
-        $fields['roles'] = function(Profile $profile){
-            $userId = $profile->user_id;
-            $authManager = Yii::$app->authManager;
-            $roles = $authManager->getRolesByUser($userId);
-            return $roles;
-        };
+//        $fields['roles'] = function(Profile $profile){
+//            $userId = $profile->user_id;
+//            $authManager = Yii::$app->authManager;
+//            $roles = $authManager->getRolesByUser($userId);
+//            return $roles;
+//        };
 
 
         return $fields;

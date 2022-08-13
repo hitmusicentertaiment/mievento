@@ -85,12 +85,21 @@ return [
                         'POST signup' => 'signup'
                     ]
                 ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/me',
-                    'pluralize' => false
-                ],
+                'GET v1/me' => 'v1/me/me',
+                'POST v1/me/update-profile' => 'v1/me/update-profile',
+                'POST v1/me/set-profile-image' => 'v1/me/set-profile-image',
+                'POST v1/me/change-password' => 'v1/me/change-password',
+                'OPTIONS v1/me' => 'v1/me/options',
+                'OPTIONS v1/me/<action:(.*)>' => 'v1/me/options',
 
+//                [
+//                    'class' => 'yii\rest\UrlRule',
+//                    'controller' => 'v1/me',
+//                    'pluralize' => false,
+//                    'extraPatterns' => [
+//                        'GET info' => 'me'
+//                    ]
+//                ],
 
 
 
