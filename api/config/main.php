@@ -92,14 +92,14 @@ return [
                 'OPTIONS v1/me' => 'v1/me/options',
                 'OPTIONS v1/me/<action:(.*)>' => 'v1/me/options',
 
-//                [
-//                    'class' => 'yii\rest\UrlRule',
-//                    'controller' => 'v1/me',
-//                    'pluralize' => false,
-//                    'extraPatterns' => [
-//                        'GET info' => 'me'
-//                    ]
-//                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/event',
+                    'extraPatterns' => [
+                        'POST <eventId>/categories/add/<categoryId>' => "add-category",
+                        'DELETE <eventId>/categories/remove/<categoryId>' => "remove-category"
+                    ]
+                ]
 
 
 

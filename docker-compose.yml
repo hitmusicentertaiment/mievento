@@ -2,18 +2,22 @@ version: '3.2'
 
 services:
 
-  pgsql:
-    image: postgres:9.5
+  mysql:
+    image: mysql/mysql-server:8.0.23
+    command: [ --default-authentication-plugin=mysql_native_password, --sort-buffer-size=256000000 ]
     environment:
-     - POSTGRES_DB=mievento
-     - POSTGRES_USER=mievento
-     - POSTGRES_PASSWORD=mievento
+      - MYSQL_ROOT_PASSWORD=verysecret
+      - MYSQL_DATABASE=break
+      - MYSQL_USER=break
+      - MYSQL_PASSWORD=break
     ports:
-      - 54321:5432
+      - 33061:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   api:
     depends_on:
-      - pgsql
+      - mysql
     build: api
     ports:
       - 20080:80
@@ -29,7 +33,7 @@ services:
 
   backend:
     depends_on:
-      - pgsql
+      - mysql
     build: backend
     ports:
       - 21080:80
@@ -43,4 +47,6 @@ services:
     environment:
       PHP_ENABLE_XDEBUG: 1
 
+volumes:
+  mysql_data:
 

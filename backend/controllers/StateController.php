@@ -2,11 +2,9 @@
 
 namespace backend\controllers;
 
-use Da\User\Validator\AjaxRequestModelValidator;
 use Yii;
 use common\models\State;
 use common\models\StateSearch;
-use yii\bootstrap4\ActiveForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,24 +66,11 @@ class StateController extends Controller
     {
         $model = new State();
 
-        $post = Yii::$app->request->post();
-        $validator = new AjaxRequestModelValidator($model);
-        if(isset($post['ajax']) && !$validator->validate()){
-            return ActiveForm::validate($model);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        if ($model->load($post) && $model->save()) {
-            return $this->asJson([
-                'success' => true
-            ]);
-        }elseif ($model->hasErrors()){
-            return $this->asJson([
-                'success' => false,
-                'errors' => $model->errors
-            ]);
-        }
-
-        return $this->renderAjax('_form', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -101,24 +86,11 @@ class StateController extends Controller
     {
         $model = $this->findModel($id);
 
-        $post = Yii::$app->request->post();
-        $validator = new AjaxRequestModelValidator($model);
-        if(isset($post['ajax']) && !$validator->validate()){
-            return ActiveForm::validate($model);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        if ($model->load($post) && $model->save()) {
-            return $this->asJson([
-                'success' => true
-            ]);
-        }elseif ($model->hasErrors()){
-            return $this->asJson([
-                'success' => false,
-                'errors' => $model->errors
-            ]);
-        }
-
-        return $this->renderAjax('_form', [
+        return $this->render('update', [
             'model' => $model,
         ]);
     }
@@ -150,6 +122,6 @@ class StateController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }
