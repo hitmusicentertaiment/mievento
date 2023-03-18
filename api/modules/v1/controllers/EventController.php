@@ -2,7 +2,6 @@
 
 namespace api\modules\v1\controllers;
 
-use common\models\AppointmentSearch;
 use common\models\Category;
 use common\models\Event;
 use common\models\EventSearch;

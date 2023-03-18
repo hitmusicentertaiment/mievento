@@ -99,9 +99,27 @@ return [
                         'POST <eventId>/categories/add/<categoryId>' => "add-category",
                         'DELETE <eventId>/categories/remove/<categoryId>' => "remove-category"
                     ]
-                ]
-
-
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/categories',
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/places',
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/reactions',
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/reservations',
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/reviews',
+                ],
 
             ],
         ],
