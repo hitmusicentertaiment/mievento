@@ -34,8 +34,9 @@ class Review extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'entity', 'entity_id'], 'required'],
-            [['user_id', 'entity_id', 'stars'], 'integer'],
+            [['user_id', 'entity_id'], 'integer'],
             [['comment'], 'string'],
+            [['stars'], 'number'],
             [['datetime'], 'safe'],
             [['entity'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
