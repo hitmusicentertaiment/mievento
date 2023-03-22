@@ -102,23 +102,23 @@ return [
                 ],
                 [
                     'class' => \yii\rest\UrlRule::class,
-                    'controller' => 'v1/categories',
+                    'controller' => 'v1/category',
                 ],
                 [
                     'class' => \yii\rest\UrlRule::class,
-                    'controller' => 'v1/places',
+                    'controller' => 'v1/place',
                 ],
                 [
                     'class' => \yii\rest\UrlRule::class,
-                    'controller' => 'v1/reactions',
+                    'controller' => 'v1/reaction',
                 ],
                 [
                     'class' => \yii\rest\UrlRule::class,
-                    'controller' => 'v1/reservations',
+                    'controller' => 'v1/reservation',
                 ],
                 [
                     'class' => \yii\rest\UrlRule::class,
-                    'controller' => 'v1/reviews',
+                    'controller' => 'v1/review',
                 ],
 
             ],
