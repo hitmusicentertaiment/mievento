@@ -12,6 +12,9 @@ use common\models\Event;
 class EventSearch extends Event
 {
     public $cities;
+    public $from;
+    public $to;
+
 
     /**
      * {@inheritdoc}
@@ -20,7 +23,7 @@ class EventSearch extends Event
     {
         return [
             [['id', 'min_age', 'place_id', 'user_id'], 'integer'],
-            [['name', 'start_datetime', 'end_datetime', 'address', 'information', 'flayer', 'outfit', 'cities'], 'safe'],
+            [['name', 'start_datetime', 'end_datetime', 'address', 'information', 'flayer', 'outfit', 'cities', 'drinks', 'hashtags', 'from', 'to'], 'safe'],
             [['price', 'longitude', 'latitude'], 'number'],
         ];
     }
@@ -87,12 +90,23 @@ class EventSearch extends Event
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'information', $this->information])
             ->andFilterWhere(['like', 'flayer', $this->flayer])
+            ->andFilterWhere(['like', 'drinks', $this->flayer])
+            ->andFilterWhere(['like', 'hashtags', $this->flayer])
             ->andFilterWhere(['like', 'outfit', $this->outfit]);
 
         if(!empty($this->cities)){
             $query->innerJoin("place", "place.id=place_id")
                 ->andWhere(['place.city_id' => $this->cities]);
         }
+
+        if(!empty($this->from)){
+            $query->andWhere(['>=','DATE(start_datetime)', $this->from]);
+        }
+
+        if(!empty($this->to)){
+            $query->andWhere(['<','DATE(start_datetime)', $this->to]);
+        }
+
 
         return $dataProvider;
     }

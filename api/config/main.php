@@ -120,6 +120,19 @@ return [
                     'class' => \yii\rest\UrlRule::class,
                     'controller' => 'v1/review',
                 ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/country',
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/state',
+                ],
+                [
+                    'class' => \yii\rest\UrlRule::class,
+                    'controller' => 'v1/city',
+                ],
+
 
             ],
         ],

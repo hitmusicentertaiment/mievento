@@ -24,9 +24,9 @@ class m220821_202756_alter_profile_table extends Migration
         $this->addColumn('profile', 'gender', $this->string(1)->notNull());
         $this->addColumn('profile', 'phone', $this->string()->notNull());
         $this->addColumn('profile', 'city_id', $this->integer()->notNull());
-        $this->addColumn('profile', 'id_number', $this->string()->notNull());
-        $this->addColumn('profile', 'id_type', $this->string()->notNull());
-        $this->addColumn('profile', 'social_networks', $this->string()->notNull());
+        $this->addColumn('profile', 'id_number', $this->string());
+        $this->addColumn('profile', 'id_type', $this->string());
+        $this->addColumn('profile', 'social_networks', $this->string());
         $this->addColumn('profile', 'surname', $this->string()->notNull());
 
         $this->createIndex(

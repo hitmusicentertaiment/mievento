@@ -29,6 +29,8 @@ use yii\helpers\ArrayHelper;
  * @property-read \yii\db\ActiveQuery $invitedUsers
  * @property-read \yii\db\ActiveQuery | Category[] $categories
  * @property TaggedUser[] $taggedUsers
+ * @property string $drinks [varchar(255)]
+ * @property string $hashtags [varchar(255)]
  */
 class Event extends \yii\db\ActiveRecord
 {
@@ -58,7 +60,7 @@ class Event extends \yii\db\ActiveRecord
             [['name', 'start_datetime', 'address'], 'required'],
             [['start_datetime', 'end_datetime', '_categories'], 'safe'],
             [['price', 'longitude', 'latitude'], 'number'],
-            [['information', 'outfit'], 'string'],
+            [['information', 'outfit', 'drinks', 'hashtags'], 'string'],
             [['min_age', 'place_id', 'user_id'], 'integer'],
             [['name', 'address', 'flayer'], 'string', 'max' => 255],
             [['place_id'], 'exist', 'skipOnError' => true, 'targetClass' => Place::className(), 'targetAttribute' => ['place_id' => 'id']],
