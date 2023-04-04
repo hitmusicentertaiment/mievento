@@ -97,7 +97,7 @@ class Event extends \yii\db\ActiveRecord
 
         $this->unlinkAll("categories", true);
 
-        foreach ($this->_categories as $categoryId){
+        foreach ($this->_categories as $categoryId) {
             Yii::$app->db->createCommand()
                 ->insert(
                     "event_category",
@@ -117,6 +117,8 @@ class Event extends \yii\db\ActiveRecord
         $extraFields[] = 'invitedUsers';
         $extraFields[] = 'place';
         $extraFields[] = 'reservations';
+        $extraFields[] = 'reactions';
+        $extraFields[] = 'myReservation';
 
         return $extraFields;
     }
@@ -163,6 +165,13 @@ class Event extends \yii\db\ActiveRecord
         return $this->hasMany(Reservation::className(), ['event_id' => 'id']);
     }
 
+    public function getMyReservation()
+    {
+        return $this->getReservations()
+            ->andWhere(['user_id' => Yii::$app->user->identity->id])
+            ->one();
+    }
+
     /**
      * Gets query for [[TaggedUsers]].
      *
@@ -171,5 +180,18 @@ class Event extends \yii\db\ActiveRecord
     public function getInvitedUsers()
     {
         return $this->hasMany(TaggedUser::className(), ['event_id' => 'id']);
+    }
+
+    public function getReactions()
+    {
+        return $this->hasMany(Reaction::class, ['entity_id' => 'id'])
+            ->andWhere(['entity' => self::class]);
+    }
+
+    public function getMyReaction()
+    {
+        return $this->getReactions()
+            ->andWhere(['user_id' => Yii::$app->user->identity->id])
+            ->one();
     }
 }
